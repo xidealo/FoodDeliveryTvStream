@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Стрим админ</string>
+    <string name="action_retry">Повторить попытку</string>
+
+</resources>
