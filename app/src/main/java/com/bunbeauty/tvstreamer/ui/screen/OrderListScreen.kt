@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -30,7 +31,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun OrderListRoute(
-    viewModel: OrderListViewModel = koinViewModel()
+    viewModel: OrderListViewModel = koinViewModel(),
 ) {
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     val onAction = remember {
@@ -54,8 +55,18 @@ fun OrderListScreen(state: OrderList.DataState) {
         shape = RectangleShape
     ) {
         Column {
+            if (state.hasConnectionError) {
+                LinearProgressIndicator(
+                    modifier = Modifier.fillMaxWidth(),
+                    color = AdminTheme.colors.main.primary
+                )
+            }
+
             Row(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(top = 16.dp, bottom = 8.dp)
+                    .padding(horizontal = 16.dp)
             ) {
                 Column(
                     modifier = Modifier.weight(1f)
@@ -99,9 +110,9 @@ fun OrderListScreen(state: OrderList.DataState) {
                 ) {
                     Box(
                         modifier =
-                        Modifier
-                            .background(AdminTheme.colors.order.done)
-                            .fillMaxWidth()
+                            Modifier
+                                .background(AdminTheme.colors.order.done)
+                                .fillMaxWidth()
                     ) {
                         Text(
                             text = "Готовы",
@@ -130,12 +141,16 @@ fun OrderListScreen(state: OrderList.DataState) {
                     }
                 }
             }
-            if (state.hasConnectionError) {
-                LinearProgressIndicator(
-                    modifier = Modifier.fillMaxWidth(),
-                    color = AdminTheme.colors.main.primary
-                )
-            }
+
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
+                text = "Добро пожаловать! Заказы из мобильного приложения \uD83D\uDCF1",
+                style = AdminTheme.typography.titleLarge.black,
+                color = AdminTheme.colors.main.onSurface,
+                textAlign = TextAlign.Center
+            )
         }
     }
 }
