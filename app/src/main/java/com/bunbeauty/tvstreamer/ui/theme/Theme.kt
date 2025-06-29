@@ -8,7 +8,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 @Composable
 fun MyApplicationTheme(
     isInDarkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit,
+    content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
         LocalOverscrollFactory provides null,

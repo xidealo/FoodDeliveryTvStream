@@ -5,11 +5,11 @@ import androidx.navigation.compose.composable
 import com.bunbeauty.tvstreamer.ui.screen.LoginRoute
 
 fun NavGraphBuilder.loginScreenRoute(
-    navigateToOrderList: () -> Unit,
+    navigateToOrderList: () -> Unit
 ) {
     composable<LoginScreenDestination> {
         LoginRoute(
-            navigateToOrderList = navigateToOrderList,
+            navigateToOrderList = navigateToOrderList
         )
     }
 }

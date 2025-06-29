@@ -18,10 +18,10 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = LoginScreenDestination,
+                    startDestination = LoginScreenDestination
                 ) {
                     tvNavGraphBuilder(
-                        navController = navController,
+                        navController = navController
                     )
                 }
             }

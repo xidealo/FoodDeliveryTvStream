@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,16 +23,14 @@ import com.bunbeauty.tvstreamer.presentation.login.Login
 import com.bunbeauty.tvstreamer.ui.theme.AdminTheme
 import com.bunbeauty.tvstreamer.ui.theme.item.AdminTextField
 import com.bunbeauty.tvstreamer.ui.theme.item.AdminTextFieldDefaults.keyboardOptions
-import com.bunbeauty.tvstreamer.ui.theme.item.button.LoadingButton
 import com.bunbeauty.tvstreamer.ui.theme.item.button.MainButton
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginRoute(
     viewModel: LoginViewModel = koinViewModel(),
-    navigateToOrderList: () -> Unit,
+    navigateToOrderList: () -> Unit
 ) {
-
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     val onAction = remember {
         { event: Login.Action ->
@@ -51,7 +48,7 @@ fun LoginRoute(
     LoginEffect(
         effects = effects,
         navigateToOrderList = navigateToOrderList,
-        consumeEffects = consumeEffects,
+        consumeEffects = consumeEffects
     )
     LoginScreen(onAction = onAction, state = viewState)
 }
@@ -59,7 +56,7 @@ fun LoginRoute(
 @Composable
 fun LoginScreen(
     state: Login.DataState,
-    onAction: (Login.Action) -> Unit,
+    onAction: (Login.Action) -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -120,7 +117,7 @@ fun LoginScreen(
 private fun LoginEffect(
     effects: List<Login.Event>,
     navigateToOrderList: () -> Unit,
-    consumeEffects: () -> Unit,
+    consumeEffects: () -> Unit
 ) {
     LaunchedEffect(effects) {
         effects.forEach { effect ->

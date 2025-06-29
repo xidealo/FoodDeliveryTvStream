@@ -13,7 +13,7 @@ interface OrderList {
         val preparingOrderList: List<Order>,
         val doneOrderList: List<Order>,
         val hasConnectionError: Boolean,
-        val loadingOrderList: Boolean,
+        val loadingOrderList: Boolean
     ) : BaseDataState {
         enum class State {
             LOADING,

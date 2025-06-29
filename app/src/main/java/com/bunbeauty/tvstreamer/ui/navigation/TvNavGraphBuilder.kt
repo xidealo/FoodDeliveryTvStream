@@ -10,14 +10,14 @@ import com.bunbeauty.tvstreamer.ui.navigation.orderlist.orderListScreenRoute
 internal val emptyNavOptions = navOptions { }
 
 fun NavGraphBuilder.tvNavGraphBuilder(
-    navController: NavController,
+    navController: NavController
 ) {
     loginScreenRoute(
         navigateToOrderList = {
             navController.navigateToOrderListScreen(
                 emptyNavOptions
             )
-        },
+        }
     )
     orderListScreenRoute()
 }

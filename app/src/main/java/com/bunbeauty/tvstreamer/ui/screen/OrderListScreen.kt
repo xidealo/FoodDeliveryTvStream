@@ -30,7 +30,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun OrderListRoute(
-    viewModel: OrderListViewModel = koinViewModel(),
+    viewModel: OrderListViewModel = koinViewModel()
 ) {
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     val onAction = remember {
@@ -55,7 +55,7 @@ fun OrderListScreen(state: OrderList.DataState) {
     ) {
         Column {
             Row(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier.padding(16.dp)
             ) {
                 Column(
                     modifier = Modifier.weight(1f)
@@ -78,7 +78,7 @@ fun OrderListScreen(state: OrderList.DataState) {
                     FlowColumn(
                         maxLines = 2,
                         horizontalArrangement = spacedBy(8.dp),
-                        modifier = Modifier.padding(start = 8.dp),
+                        modifier = Modifier.padding(start = 8.dp)
                     ) {
                         state.preparingOrderList.forEach { order ->
                             Text(
@@ -99,9 +99,9 @@ fun OrderListScreen(state: OrderList.DataState) {
                 ) {
                     Box(
                         modifier =
-                            Modifier
-                                .background(AdminTheme.colors.order.done)
-                                .fillMaxWidth()
+                        Modifier
+                            .background(AdminTheme.colors.order.done)
+                            .fillMaxWidth()
                     ) {
                         Text(
                             text = "Готовы",
@@ -113,7 +113,7 @@ fun OrderListScreen(state: OrderList.DataState) {
                         )
                     }
                     Column(
-                        modifier = Modifier.padding(start = 8.dp),
+                        modifier = Modifier.padding(start = 8.dp)
                     ) {
                         state.doneOrderList.forEach { order ->
                             Text(
@@ -130,13 +130,12 @@ fun OrderListScreen(state: OrderList.DataState) {
                     }
                 }
             }
-            if(state.hasConnectionError){
+            if (state.hasConnectionError) {
                 LinearProgressIndicator(
                     modifier = Modifier.fillMaxWidth(),
                     color = AdminTheme.colors.main.primary
                 )
             }
         }
-
     }
 }

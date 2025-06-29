@@ -48,7 +48,7 @@ import java.net.SocketException
 
 class FoodDeliveryApiImpl(
     private val client: HttpClient,
-    private val json: Json,
+    private val json: Json
 ) : FoodDeliveryApi {
 
     private var webSocketSession: DefaultClientWebSocketSession? = null
@@ -60,7 +60,7 @@ class FoodDeliveryApiImpl(
     private var webSocketSessionOpened = false
 
     override suspend fun login(
-        userAuthorizationRequest: UserAuthorizationRequest,
+        userAuthorizationRequest: UserAuthorizationRequest
     ): ApiResult<UserAuthorizationResponse> {
         return post(
             path = "user/login",
@@ -77,7 +77,7 @@ class FoodDeliveryApiImpl(
 
     override suspend fun getOrderListByCafeUuid(
         token: String,
-        cafeUuid: String,
+        cafeUuid: String
     ): ApiResult<ServerList<OrderServer>> {
         return get(
             path = "order",
@@ -88,7 +88,7 @@ class FoodDeliveryApiImpl(
 
     override suspend fun getUpdatedOrderFlowByCafeUuid(
         token: String,
-        cafeUuid: String,
+        cafeUuid: String
     ): Flow<ApiResult<OrderServer>> {
         mutex.withLock {
             if (!webSocketSessionOpened) {
@@ -154,7 +154,7 @@ class FoodDeliveryApiImpl(
     private suspend inline fun <reified T> get(
         path: String,
         parameters: Map<String, String?> = mapOf(),
-        token: String? = null,
+        token: String? = null
     ): ApiResult<T> {
         return safeCall {
             client.get {
@@ -172,7 +172,7 @@ class FoodDeliveryApiImpl(
         path: String,
         body: Any,
         parameters: Map<String, String> = mapOf(),
-        token: String? = null,
+        token: String? = null
     ): ApiResult<T> {
         return safeCall {
             client.post {
@@ -190,7 +190,7 @@ class FoodDeliveryApiImpl(
         path: String,
         body: Any,
         parameters: Map<String, String> = mapOf(),
-        token: String? = null,
+        token: String? = null
     ): ApiResult<T> {
         return safeCall {
             client.put {
@@ -208,7 +208,7 @@ class FoodDeliveryApiImpl(
         path: String,
         body: Any,
         parameters: Map<String, String?> = mapOf(),
-        token: String? = null,
+        token: String? = null
     ): ApiResult<T> {
         return safeCall {
             client.patch {
@@ -225,7 +225,7 @@ class FoodDeliveryApiImpl(
     private suspend inline fun <reified T> delete(
         path: String,
         parameters: Map<String, String?> = mapOf(),
-        token: String? = null,
+        token: String? = null
     ): ApiResult<T> {
         return safeCall {
             client.delete {
@@ -243,7 +243,7 @@ class FoodDeliveryApiImpl(
         path: String,
         body: Any?,
         parameters: Map<String, String?> = mapOf(),
-        token: String? = null,
+        token: String? = null
     ) {
         if (body != null) {
             setBody(body)
@@ -258,7 +258,7 @@ class FoodDeliveryApiImpl(
     }
 
     private suspend inline fun <reified R> safeCall(
-        crossinline networkCall: suspend () -> HttpResponse,
+        crossinline networkCall: suspend () -> HttpResponse
     ): ApiResult<R> {
         return try {
             withContext(IO) {

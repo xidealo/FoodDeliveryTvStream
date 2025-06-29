@@ -22,7 +22,6 @@ class TvStreamerApplication : Application() {
     }
 }
 
-
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
     appDeclaration()
     modules(

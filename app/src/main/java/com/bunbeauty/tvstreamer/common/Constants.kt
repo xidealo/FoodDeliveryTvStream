@@ -2,7 +2,6 @@ package com.bunbeauty.tvstreamer.common
 
 object Constants {
 
-
     // API
     const val WEB_SOCKET_TAG = "webSocketTag"
     const val ORDER_TAG = "orderTag"

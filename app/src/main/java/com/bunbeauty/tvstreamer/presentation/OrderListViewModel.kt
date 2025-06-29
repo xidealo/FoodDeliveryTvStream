@@ -16,7 +16,7 @@ class OrderListViewModel(
     private val getOrderListFlow: GetOrderListFlowUseCase,
     private val getOrderErrorFlow: GetOrderErrorFlowUseCase,
     private val getPreparingOrderListUseCase: GetPreparingOrderListUseCase,
-    private val getDoneOrderListUseCase: GetDoneOrderListUseCase,
+    private val getDoneOrderListUseCase: GetDoneOrderListUseCase
 ) : BaseStateViewModel<OrderList.DataState, OrderList.Action, OrderList.Event>(
     initState = OrderList.DataState(
         refreshing = false,
@@ -68,7 +68,7 @@ class OrderListViewModel(
                 setState {
                     copy(
                         hasConnectionError = false,
-                        orderListState = OrderList.DataState.State.SUCCESS,
+                        orderListState = OrderList.DataState.State.SUCCESS
                     )
                 }
 
@@ -102,7 +102,7 @@ class OrderListViewModel(
                 getOrderErrorFlow().collect {
                     setState {
                         copy(
-                            hasConnectionError = true,
+                            hasConnectionError = true
                         )
                     }
                     onAction(OrderList.Action.StopObserveOrders)

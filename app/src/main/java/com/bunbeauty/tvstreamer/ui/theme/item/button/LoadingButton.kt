@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.bunbeauty.tvstreamer.ui.theme.item.button.AdminButtonDefaults.getButtonElevation
 import com.bunbeauty.tvstreamer.ui.theme.AdminTheme
+import com.bunbeauty.tvstreamer.ui.theme.item.button.AdminButtonDefaults.getButtonElevation
 import com.bunbeauty.tvstreamer.ui.theme.item.rememberMultipleEventsCutter
 import com.bunbeauty.tvstreamer.ui.theme.medium
 
@@ -21,7 +21,7 @@ fun LoadingButton(
     isLoading: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    hasShadow: Boolean = true,
+    hasShadow: Boolean = true
 ) {
     CompositionLocalProvider(
         LocalMinimumInteractiveComponentSize provides 0.dp

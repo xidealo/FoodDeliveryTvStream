@@ -29,5 +29,5 @@ data class AdminDimensions(
 
     val screenContentSpace: Dp = 16.dp,
 
-    val codeWidth: Dp = 56.dp,
-    )
+    val codeWidth: Dp = 56.dp
+)

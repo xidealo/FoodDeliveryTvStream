@@ -10,7 +10,7 @@ import com.bunbeauty.tvstreamer.presentation.login.Login
 
 class LoginViewModel(
     private val loginUseCase: LoginUseCase,
-    private val hasSessionUseCase: HasSessionUseCase,
+    private val hasSessionUseCase: HasSessionUseCase
 ) : BaseStateViewModel<Login.DataState, Login.Action, Login.Event>(
     initState = Login.DataState(
         username = "",

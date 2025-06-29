@@ -14,8 +14,8 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bunbeauty.tvstreamer.ui.theme.AdminTheme
-import com.bunbeauty.tvstreamer.ui.theme.item.AdminTextFieldDefaults.keyboardOptions
 import com.bunbeauty.tvstreamer.ui.theme.item.AdminTextFieldDefaults.keyboardActions
+import com.bunbeauty.tvstreamer.ui.theme.item.AdminTextFieldDefaults.keyboardOptions
 
 @Composable
 fun AdminTextField(
@@ -31,7 +31,7 @@ fun AdminTextField(
     isError: Boolean = false,
     errorText: String? = null,
     enabled: Boolean = true,
-    trailingIcon: (@Composable () -> Unit)? = null,
+    trailingIcon: (@Composable () -> Unit)? = null
 ) {
     Column(modifier = modifier) {
         AdminBaseTextField(
@@ -61,7 +61,7 @@ fun AdminTextField(
 @Composable
 private fun ErrorText(
     isError: Boolean,
-    errorText: String?,
+    errorText: String?
 ) {
     if (isError && errorText != null) {
         Text(

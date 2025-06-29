@@ -5,10 +5,10 @@ import com.bunbeauty.tvstreamer.data.FoodDeliveryApi
 import com.bunbeauty.tvstreamer.data.FoodDeliveryApiImpl
 import com.bunbeauty.tvstreamer.data.ServerOrderMapper
 import com.bunbeauty.tvstreamer.data.repository.datastore.DataStoreRepository
-import com.bunbeauty.tvstreamer.presentation.repo.OrderRepo
 import com.bunbeauty.tvstreamer.data.repository.order.OrderRepository
 import com.bunbeauty.tvstreamer.data.repository.user.UserRepoImpl
 import com.bunbeauty.tvstreamer.presentation.repo.DataStoreRepo
+import com.bunbeauty.tvstreamer.presentation.repo.OrderRepo
 import com.bunbeauty.tvstreamer.presentation.repo.UserRepo
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
@@ -38,7 +38,7 @@ fun dataModule() = module {
     single<UserRepo> {
         UserRepoImpl(
             foodDeliveryApi = get(),
-            dataStoreRepo = get(),
+            dataStoreRepo = get()
         )
     }
 

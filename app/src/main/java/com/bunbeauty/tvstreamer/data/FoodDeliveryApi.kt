@@ -12,20 +12,19 @@ interface FoodDeliveryApi {
 
     // LOGIN
     suspend fun login(
-        userAuthorizationRequest: UserAuthorizationRequest,
+        userAuthorizationRequest: UserAuthorizationRequest
     ): ApiResult<UserAuthorizationResponse>
     suspend fun getUser(token: String): ApiResult<UserResponse>
 
     // ORDER
     suspend fun getOrderListByCafeUuid(
         token: String,
-        cafeUuid: String,
+        cafeUuid: String
     ): ApiResult<ServerList<OrderServer>>
-
 
     suspend fun getUpdatedOrderFlowByCafeUuid(
         token: String,
-        cafeUuid: String,
+        cafeUuid: String
     ): Flow<ApiResult<OrderServer>>
 
     suspend fun unsubscribeOnOrderList(message: String)

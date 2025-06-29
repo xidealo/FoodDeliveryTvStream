@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ktLint)
 }
 
 android {
@@ -12,10 +13,9 @@ android {
     defaultConfig {
         applicationId = "com.bunbeauty.tvstreamer"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
     }
 
     buildTypes {
@@ -59,15 +59,12 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
-    //di
+    // di
     implementation(libs.bundles.di)
 
     // DataStore
     implementation(libs.datastore.preferences)
 
-
-    //network
+    // network
     implementation(libs.bundles.ktor)
-
 }

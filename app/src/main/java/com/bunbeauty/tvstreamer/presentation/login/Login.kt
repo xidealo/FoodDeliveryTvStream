@@ -9,7 +9,7 @@ interface Login {
         val username: String,
         val password: String,
         val hasError: Boolean,
-        val loading: Boolean,
+        val loading: Boolean
     ) : BaseDataState
 
     sealed interface Action : BaseAction {

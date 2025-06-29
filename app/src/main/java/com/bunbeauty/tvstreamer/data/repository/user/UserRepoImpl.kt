@@ -10,12 +10,12 @@ class LoginException : Exception("Login failed")
 
 class UserRepoImpl(
     private val foodDeliveryApi: FoodDeliveryApi,
-    private val dataStoreRepo: DataStoreRepo,
+    private val dataStoreRepo: DataStoreRepo
 ) : UserRepo {
 
     override suspend fun login(
         username: String,
-        password: String,
+        password: String
     ) {
         when (
             val result = foodDeliveryApi.login(

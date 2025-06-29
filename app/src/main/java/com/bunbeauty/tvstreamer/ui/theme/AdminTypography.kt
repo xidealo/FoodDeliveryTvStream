@@ -24,7 +24,7 @@ data class AdminTypography(
     val titleLarge: TextStyle = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 24.sp,
+        fontSize = 24.sp
     ),
     val labelSmall: TextStyle = TextStyle(
         fontFamily = FontFamily.Default,
@@ -62,7 +62,7 @@ data class AdminTypography(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp
-    ),
+    )
 )
 
 val TextStyle.medium: TextStyle get() = this.copy(fontWeight = FontWeight.Medium)
