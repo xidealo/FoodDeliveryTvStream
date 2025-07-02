@@ -80,7 +80,7 @@ class FoodDeliveryApiImpl(
         cafeUuid: String
     ): ApiResult<ServerList<OrderServer>> {
         return get(
-            path = "order",
+            path = "order/pickup",
             parameters = mapOf("cafeUuid" to cafeUuid),
             token = token
         )

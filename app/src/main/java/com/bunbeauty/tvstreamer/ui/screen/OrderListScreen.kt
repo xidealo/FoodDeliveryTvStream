@@ -31,7 +31,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun OrderListRoute(
-    viewModel: OrderListViewModel = koinViewModel(),
+    viewModel: OrderListViewModel = koinViewModel()
 ) {
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     val onAction = remember {
@@ -110,9 +110,9 @@ fun OrderListScreen(state: OrderList.DataState) {
                 ) {
                     Box(
                         modifier =
-                            Modifier
-                                .background(AdminTheme.colors.order.done)
-                                .fillMaxWidth()
+                        Modifier
+                            .background(AdminTheme.colors.order.done)
+                            .fillMaxWidth()
                     ) {
                         Text(
                             text = "Готовы",
