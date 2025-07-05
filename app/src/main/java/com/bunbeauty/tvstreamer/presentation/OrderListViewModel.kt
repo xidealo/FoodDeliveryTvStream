@@ -7,6 +7,7 @@ import com.bunbeauty.tvstreamer.domain.usecase.GetDoneOrderListUseCase
 import com.bunbeauty.tvstreamer.domain.usecase.GetOrderErrorFlowUseCase
 import com.bunbeauty.tvstreamer.domain.usecase.GetOrderListFlowUseCase
 import com.bunbeauty.tvstreamer.domain.usecase.GetPreparingOrderListUseCase
+import com.bunbeauty.tvstreamer.domain.usecase.LogoutUseCase
 import com.bunbeauty.tvstreamer.presentation.base.BaseStateViewModel
 import com.bunbeauty.tvstreamer.presentation.orderlist.OrderList
 import kotlinx.coroutines.Job
@@ -16,7 +17,8 @@ class OrderListViewModel(
     private val getOrderListFlow: GetOrderListFlowUseCase,
     private val getOrderErrorFlow: GetOrderErrorFlowUseCase,
     private val getPreparingOrderListUseCase: GetPreparingOrderListUseCase,
-    private val getDoneOrderListUseCase: GetDoneOrderListUseCase
+    private val getDoneOrderListUseCase: GetDoneOrderListUseCase,
+    private val logoutUseCase: LogoutUseCase
 ) : BaseStateViewModel<OrderList.DataState, OrderList.Action, OrderList.Event>(
     initState = OrderList.DataState(
         refreshing = false,
@@ -40,6 +42,7 @@ class OrderListViewModel(
             }
 
             OrderList.Action.StopObserveOrders -> stopObservingOrderList()
+            OrderList.Action.LogoutClick -> logout()
         }
     }
 
@@ -73,10 +76,6 @@ class OrderListViewModel(
                 }
 
                 getOrderListFlow().collect { orderList ->
-                    val oldOrderList = mutableDataState.value.orderList
-
-                    val hasNewOrder = oldOrderList.size < orderList.size
-
                     setState {
                         copy(
                             doneOrderList = getDoneOrderListUseCase(orderList),
@@ -86,12 +85,6 @@ class OrderListViewModel(
                             loadingOrderList = false,
                             orderListState = OrderList.DataState.State.SUCCESS
                         )
-                    }
-
-                    if (oldOrderList.isNotEmpty() && hasNewOrder) {
-                        sendEvent {
-                            OrderList.Event.ScrollToTop
-                        }
                     }
                 }
             }
@@ -106,8 +99,22 @@ class OrderListViewModel(
                         )
                     }
                     onAction(OrderList.Action.StopObserveOrders)
-                    delay(2000)
+                    delay(5000)
                     onAction(OrderList.Action.StartObserveOrders)
+                }
+            },
+            onError = { error ->
+                Log.d("MyTag", "getOrderErrorFlow: ${error.stackTrace}")
+            }
+        )
+    }
+
+    private fun logout() {
+        viewModelScope.launchSafe(
+            block = {
+                logoutUseCase()
+                sendEvent {
+                    OrderList.Event.Back
                 }
             },
             onError = { error ->

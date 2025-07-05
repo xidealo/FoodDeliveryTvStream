@@ -1,6 +1,7 @@
 package com.bunbeauty.tvstreamer.ui.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -28,10 +30,12 @@ import com.bunbeauty.tvstreamer.ui.theme.AdminTheme
 import com.bunbeauty.tvstreamer.ui.theme.black
 import com.bunbeauty.tvstreamer.ui.theme.bold
 import org.koin.androidx.compose.koinViewModel
+import kotlin.collections.forEach
 
 @Composable
 fun OrderListRoute(
-    viewModel: OrderListViewModel = koinViewModel()
+    navigateToLogin: () -> Unit,
+    viewModel: OrderListViewModel = koinViewModel(),
 ) {
     val viewState by viewModel.state.collectAsStateWithLifecycle()
     val onAction = remember {
@@ -39,17 +43,34 @@ fun OrderListRoute(
             viewModel.onAction(event)
         }
     }
+
+    val effects by viewModel.events.collectAsStateWithLifecycle()
+    val consumeEffects = remember {
+        {
+            viewModel.consumeEvents(effects)
+        }
+    }
+
     LifecycleStartEffect(Unit) {
         onAction(OrderList.Action.StartObserveOrders)
         onStopOrDispose {
             onAction(OrderList.Action.StopObserveOrders)
         }
     }
-    OrderListScreen(state = viewState)
+    OrderListScreen(state = viewState, onAction = onAction)
+
+    OrderListEffect(
+        effects = effects,
+        navigateToLogin = navigateToLogin,
+        consumeEffects = consumeEffects
+    )
 }
 
 @Composable
-fun OrderListScreen(state: OrderList.DataState) {
+fun OrderListScreen(
+    state: OrderList.DataState,
+    onAction: (OrderList.Action) -> Unit,
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         shape = RectangleShape
@@ -110,9 +131,9 @@ fun OrderListScreen(state: OrderList.DataState) {
                 ) {
                     Box(
                         modifier =
-                        Modifier
-                            .background(AdminTheme.colors.order.done)
-                            .fillMaxWidth()
+                            Modifier
+                                .background(AdminTheme.colors.order.done)
+                                .fillMaxWidth()
                     ) {
                         Text(
                             text = "Готовы",
@@ -141,16 +162,41 @@ fun OrderListScreen(state: OrderList.DataState) {
                     }
                 }
             }
-
-            Text(
+            Surface(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-                text = "Добро пожаловать! Заказы из мобильного приложения \uD83D\uDCF1",
-                style = AdminTheme.typography.titleLarge.black,
-                color = AdminTheme.colors.main.onSurface,
-                textAlign = TextAlign.Center
-            )
+            ) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp)
+                        .clickable(
+                            onClick = {
+                                onAction(OrderList.Action.LogoutClick)
+                            }
+                        ),
+                    text = "Добро пожаловать! Заказы из мобильного приложения \uD83D\uDCF1",
+                    style = AdminTheme.typography.titleLarge.black,
+                    color = AdminTheme.colors.main.onSurface,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
+    }
+}
+
+@Composable
+private fun OrderListEffect(
+    effects: List<OrderList.Event>,
+    navigateToLogin: () -> Unit,
+    consumeEffects: () -> Unit,
+) {
+    LaunchedEffect(effects) {
+        effects.forEach { effect ->
+            when (effect) {
+                OrderList.Event.Back -> navigateToLogin()
+            }
+        }
+        consumeEffects()
     }
 }

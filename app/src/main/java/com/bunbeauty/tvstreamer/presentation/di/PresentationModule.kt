@@ -11,7 +11,8 @@ fun presentationModule() = module {
             getOrderListFlow = get(),
             getOrderErrorFlow = get(),
             getDoneOrderListUseCase = get(),
-            getPreparingOrderListUseCase = get()
+            getPreparingOrderListUseCase = get(),
+            logoutUseCase = get()
         )
     }
     viewModel {

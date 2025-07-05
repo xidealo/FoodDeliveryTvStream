@@ -19,5 +19,7 @@ fun NavGraphBuilder.tvNavGraphBuilder(
             )
         }
     )
-    orderListScreenRoute()
+    orderListScreenRoute(
+        navigateToLogin = navController::navigateUp
+    )
 }

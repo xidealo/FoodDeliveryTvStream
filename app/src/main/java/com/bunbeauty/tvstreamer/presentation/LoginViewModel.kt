@@ -75,6 +75,11 @@ class LoginViewModel(
                 sendEvent {
                     Login.Event.GoToOrderList
                 }
+                setState {
+                    copy(
+                        loading = false
+                    )
+                }
             },
             onError = {
                 setState {

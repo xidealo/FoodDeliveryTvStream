@@ -25,11 +25,10 @@ interface OrderList {
     sealed interface Action : BaseAction {
         data object StartObserveOrders : Action
         data object StopObserveOrders : Action
+        data object LogoutClick : Action
     }
 
     sealed interface Event : BaseEvent {
-        data object ScrollToTop : Event
-        data class OpenOrderDetailsEvent(val orderUuid: String, val orderCode: String) : Event
-        data class CancelNotification(val notificationId: Int) : Event
+        data object Back : Event
     }
 }
